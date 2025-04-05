@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #47d83a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #44ff00;
+        }
+
+        .footer {
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #47d83a;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            {% if usererror %}
+            <p  style="color: red;">{{ usererror }}</p>
+            {% endif %}
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            {% if emailerror %}
+            <p  style="color: red;">{{ emailerror }}</p>
+            {% endif %}
+
+            <label for="password1">Password:</label>
+            <input type="password" id="password1" name="password1" required>
+            
+
+            <label for="password2">Confirm Password:</label>
+            <input type="password" id="password2" name="password2" required>
+            {% if passerror %}
+            <p  style="color: red;">{{ passerror }}</p>
+            {% endif %}
+            <button type="submit">Sign Up</button>
+        </form>
+        <p class="footer">Already have an account? <a href="{% url 'Login' %}">Login</a></p>
+    </div>
+    
+</body>
+</html>

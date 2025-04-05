@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #444;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #47d83a;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            text-align: left;
+            color: #ccc;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 15px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            background-color: #555;
+            color: #fff;
+        }
+
+        input::placeholder {
+            color: #ccc;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #47d83a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #3ec133;
+        }
+
+        .btn-back {
+            background-color: #888;
+            margin-top: 15px;
+        }
+
+        .btn-back:hover {
+            background-color: #aaa;
+        }
+
+        .message {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Edit User</h2>
+        <div class="message">
+            <!-- Display success or error message here -->
+        </div>
+        <form method="POST" action="{% url 'edituser' user.id %}">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter new username" required value="{{ user.username }}">
+            {% if usererror %}
+            {{ usererror }}
+            {% endif %}
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter new email" required value="{{ user.email }}">
+            {% if emailerror %}
+            {{ emailerror }}
+            {% endif %}
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter new password (optional)">
+
+            <button type="submit" class="btn">Save Changes</button>
+        </form>
+
+        <a href="{% url 'myadmin' %}"><button class="btn btn-back" onclick="goBackToAdmin()">Back to Admin Panel</button></a>
+    </div>
+
+    <script>
+        function goBackToAdmin() {
+            // Redirect to the admin panel
+            window.location.href = '/admin-panel';
+        }
+    </script>
+
+</body>
+</html>
